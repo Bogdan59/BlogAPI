@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A1DCFCD2060172E00D87FCC /* CommentTableVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1DCFCC2060172E00D87FCC /* CommentTableVc.swift */; };
+		3A1DCFCF2060373E00D87FCC /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A1DCFCE2060373E00D87FCC /* PostTableViewCell.swift */; };
+		3A6CF410205EAE4A002122C0 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CF40F205EAE4A002122C0 /* ProfileViewController.swift */; };
+		3A6CF419205FF2E4002122C0 /* PostTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6CF418205FF2E4002122C0 /* PostTable.swift */; };
 		3AFBA81C205D85010010304B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFBA81B205D85010010304B /* AppDelegate.swift */; };
 		3AFBA81E205D85010010304B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFBA81D205D85010010304B /* ViewController.swift */; };
 		3AFBA821205D85010010304B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3AFBA81F205D85010010304B /* Main.storyboard */; };
@@ -23,6 +27,10 @@
 
 /* Begin PBXFileReference section */
 		0755696D5C5F650FAA66B1FF /* Pods-BlogAPI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlogAPI.release.xcconfig"; path = "Pods/Target Support Files/Pods-BlogAPI/Pods-BlogAPI.release.xcconfig"; sourceTree = "<group>"; };
+		3A1DCFCC2060172E00D87FCC /* CommentTableVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableVc.swift; sourceTree = "<group>"; };
+		3A1DCFCE2060373E00D87FCC /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		3A6CF40F205EAE4A002122C0 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3A6CF418205FF2E4002122C0 /* PostTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTable.swift; sourceTree = "<group>"; };
 		3AFBA818205D85010010304B /* BlogAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlogAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AFBA81B205D85010010304B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AFBA81D205D85010010304B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,12 +103,16 @@
 		3AFBA838205DAAC40010304B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3AFBA831205D88F90010304B /* CustomCollectionVC.swift */,
-				3AFBA833205D95780010304B /* DetailVC.swift */,
 				3AFBA81F205D85010010304B /* Main.storyboard */,
 				3AFBA827205D85010010304B /* LaunchScreen.storyboard */,
+				3AFBA831205D88F90010304B /* CustomCollectionVC.swift */,
+				3AFBA833205D95780010304B /* DetailVC.swift */,
 				3AFBA83A205E7E690010304B /* UserVC.swift */,
 				3AFBA83C205E88260010304B /* AddPostVC.swift */,
+				3A6CF40F205EAE4A002122C0 /* ProfileViewController.swift */,
+				3A1DCFCC2060172E00D87FCC /* CommentTableVc.swift */,
+				3A6CF418205FF2E4002122C0 /* PostTable.swift */,
+				3A1DCFCE2060373E00D87FCC /* PostTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -260,13 +272,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AFBA83B205E7E690010304B /* UserVC.swift in Sources */,
+				3A1DCFCD2060172E00D87FCC /* CommentTableVc.swift in Sources */,
 				3AFBA834205D95780010304B /* DetailVC.swift in Sources */,
 				3AFBA83D205E88260010304B /* AddPostVC.swift in Sources */,
 				3AFBA836205DA9A20010304B /* PostModel.swift in Sources */,
 				3AFBA824205D85010010304B /* BlogAPI.xcdatamodeld in Sources */,
 				3AFBA81E205D85010010304B /* ViewController.swift in Sources */,
+				3A6CF410205EAE4A002122C0 /* ProfileViewController.swift in Sources */,
 				3AFBA81C205D85010010304B /* AppDelegate.swift in Sources */,
+				3A6CF419205FF2E4002122C0 /* PostTable.swift in Sources */,
 				3AFBA832205D88F90010304B /* CustomCollectionVC.swift in Sources */,
+				3A1DCFCF2060373E00D87FCC /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
