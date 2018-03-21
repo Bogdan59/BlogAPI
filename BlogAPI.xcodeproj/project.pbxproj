@@ -111,8 +111,8 @@
 				3AFBA83C205E88260010304B /* AddPostVC.swift */,
 				3A6CF40F205EAE4A002122C0 /* ProfileViewController.swift */,
 				3A1DCFCC2060172E00D87FCC /* CommentTableVc.swift */,
-				3A6CF418205FF2E4002122C0 /* PostTable.swift */,
 				3A1DCFCE2060373E00D87FCC /* PostTableViewCell.swift */,
+				3A6CF418205FF2E4002122C0 /* PostTable.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

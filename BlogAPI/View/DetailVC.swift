@@ -8,68 +8,34 @@
 
 import UIKit
 
-//class PostTableView: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
-//
-//
-//    @IBOutlet weak var nameTableLabel: UILabel!
-//    @IBOutlet weak var dateTableLable: UILabel!
-//    @IBOutlet weak var commentTableLable: UILabel!
-//
-//
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//        return (DetailVC.detail?.text.count)!
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellCell")! as PostTableView
-//
-//        let name = nameTableLabel
-//        var date = dateTableLable
-//        var comment = commentTableLable
-//
-//
-////        cell.textLabel?.text = self.detail?.text
-////        cell.detailTextLabel?.text = String(describing: detail!.id)
-//
-//
-//        return cell
-//    }
-//
-//
-//
-//}
-
 class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     
     @IBOutlet weak var detailTitleLabel: UILabel!
     @IBOutlet weak var detailIdLabel: UILabel!
     @IBOutlet weak var detailDateLabel: UILabel!
     @IBOutlet weak var detailTitLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    //    @IBOutlet weak var nameCommentLabel: UILabel!
-    //    @IBOutlet weak var dateCommentLabel: UILabel!
-    //    @IBOutlet weak var textCommentLabel: UILabel!
-    
-    
+    @IBOutlet weak var commentView: UITableView!
     
     
     var detail: PostModel?
-    var comment: BlogComment?
+    var comm: BlogComment?
+    var comment = [BlogComment]()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
         loadPostId()
+        commentCell()
         detailTitleLabel.text = detail?.text
         detailDateLabel.text = detail?.datePublic
         detailTitLabel.text = detail?.title
         detailIdLabel.text = String(describing: detail!.id)
-        tableView.delegate = self
-        tableView.dataSource = self
+
         
     }
     
@@ -110,9 +76,10 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellCell", for: indexPath) as! PostTableViewCell
         
-        cell.nameCommentLabel.text = String(describing: detail!.id)
-        cell.dateCommentLabel.text = detail?.datePublic
-        cell.textCommentLabel.text = detail?.text
+//        cell.nameCommentLabel.text = String(describing: comm?.id)
+        cell.dateCommentLabel.text = comm?.datePublic
+        cell.textCommentLabel.text = comm?.text
+        cell.nameCommentLabel.text = value(forKey: "author") as! String
         
         //        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cellCell")! as UITableViewCell
         //
@@ -128,34 +95,52 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    //    http://fed-blog.herokuapp.com/api/v1/comments/posts/21
     
-    //    func downloadComment() {
-    //
-    //        let  id = (detail?.id)!
-    //
-    //        let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(id)")
-    //        guard let downloadURL = url else {return}
-    //
-    //        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-    //            guard let data = data, error == nil ,  urlResponse != nil else {
-    //                print("something is wrong")
-    //                return
-    //            }
-    //            do
-    //            {
-    //                let decoder = JSONDecoder()
-    //                let downloadTextfromID = try decoder.decode( BlogTegs.self , from: data)
-    //
-    //                DispatchQueue.main.async {
-    //                    self.blogLable.text = downloadTextfromID.title
-    //                    self.blogText.text = downloadTextfromID.text
-    //                }
-    //            }catch {
-    //                print("something is wrong, after downloading")
-    //            }
-    //            }.resume()
-    //    }
+    func commentCell() {
+        let idComment = (detail?.id)!
+        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(idComment)") else { return }
+        
+        let session = URLSession.shared
+        session.dataTask(with: url) { (data, response, error) in
+            if let response = response {
+                print(response)
+                print(response)
+                DispatchQueue.main.async {
+                    
+                }
+            }
+            
+            guard let data = data else { return}
+            print(data)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+            } catch {
+                print(error)
+            }
+        }.resume()
+    }
+    
+
+    func loadComment(){
+        
+        let idComment = (detail?.id)!
+        let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(idComment)")
+        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            if error == nil {
+                do {
+                    self.comment = try JSONDecoder().decode([BlogComment].self, from: data!)
+                } catch {
+                    print("Error")
+                }
+                DispatchQueue.main.async {
+                    self.commentView.reloadData()
+                }
+            }
+            }.resume()
+    }
+
     
 }
 

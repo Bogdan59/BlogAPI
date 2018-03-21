@@ -8,15 +8,12 @@
 
 import UIKit
 
-
 class UserVC: UIViewController {
-
+    
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var passField: UITextField!
     @IBOutlet weak var loginButt: UIButton!
     @IBOutlet weak var messageLabel: UILabel!
-    
-    
     
     @IBAction func loginTapped(_ sender: UIButton) {
         let parameters = ["name": self.nameField.text!, "password": self.passField.text! ] as [String : Any]
@@ -33,29 +30,25 @@ class UserVC: UIViewController {
         session.dataTask(with: request) { (data, response, error) in
             if let response = response {
                 print(response)
+                DispatchQueue.main.async {
+                    self.messageLabel.text = "Welcome back"
+                }
+
             }
             
             guard let data = data else { return }
             do {
                 let json: Any?
                 json = try JSONSerialization.jsonObject(with: data, options: [])
-                                print(json)
+                print(json)
                 DispatchQueue.main.async {
                     self.messageLabel.text = "User or password not valid"
                 }
             } catch {
                 print(error)
-                //                self.titleLbl.text! = request.value(forHTTPHeaderField: "message")!
-                //                titleLbl.text = httpBody.value(forKey: "message"))
             }
             
-            
-            
             }.resume()
-    
     }
     
-    
-
-
 }

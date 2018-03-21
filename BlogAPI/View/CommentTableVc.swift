@@ -8,7 +8,7 @@
 //
 //import UIKit
 //
-//class CommentTableVc: UITableViewController, XMLParserDelegate {
+//class CommentTableVc: UITableViewController {
 //
 //     var comment: BlogComment?
 //

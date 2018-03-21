@@ -14,6 +14,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var dateCommentLabel: UILabel!
     @IBOutlet weak var textCommentLabel: UILabel!
     
+    
+    
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

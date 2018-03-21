@@ -443,6 +443,7 @@
                         <viewLayoutGuide key="safeArea" id="H3X-a3-HyZ"/>
                     </view>
                     <connections>
+                        <outlet property="commentView" destination="qBr-D5-Tll" id="8d5-fU-Ape"/>
                         <outlet property="detailDateLabel" destination="lBR-mf-b2u" id="760-oe-5ho"/>
                         <outlet property="detailIdLabel" destination="9U1-zc-q28" id="FXx-a9-Pii"/>
                         <outlet property="detailTitLabel" destination="vYd-po-HVA" id="TGf-uA-glB"/>
