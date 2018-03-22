@@ -14,5 +14,4 @@ class CustomCollectionVC: UICollectionViewCell {
     @IBOutlet weak var datePublicLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     
-    
 }

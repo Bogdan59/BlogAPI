@@ -24,4 +24,19 @@ class PostModel: Codable {
     
 }
 
+class BlogComment: Codable {
+    
+    var author: String
+    var datePublic: String
+    var id: Int
+    var text: String
+    
+    init(author:String, datePublic: String, id: Int, text: String) {
+        self.author = author
+        self.datePublic = datePublic
+        self.id = id
+        self.text = text
+    }
+        
+}
 
