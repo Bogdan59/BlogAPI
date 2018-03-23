@@ -11,19 +11,19 @@ import UIKit
 class AddPostVC: UIViewController {
     
     var addPost: PostModel?
-
+    
     @IBOutlet weak var titleAddTextField: UITextField!
     @IBOutlet weak var textAddTextField: UITextField!
     
     @IBAction func addPostButton(_ sender: UIButton) {
-    
-
+        
+        
         
         
         
         let parameters = ["title": self.titleAddTextField.text!, "text": self.textAddTextField.text! ] as [String : Any]
-
-        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/security/login") else { return }
+        
+        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/posts") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -36,9 +36,9 @@ class AddPostVC: UIViewController {
             if let response = response {
                 print(response)
                 
-//                DispatchQueue.main.async {
-//                    self.messageLabel.text = "Welcome back"
-//                }
+                //                DispatchQueue.main.async {
+                //                    self.messageLabel.text = "Welcome back"
+                //                }
                 
             }
             
@@ -47,9 +47,9 @@ class AddPostVC: UIViewController {
                 let json: Any?
                 json = try JSONSerialization.jsonObject(with: data, options: [])
                 print(json)
-//                DispatchQueue.main.async {
-//                    self.messageLabel.text = "User or password not valid"
-//                }
+                //                DispatchQueue.main.async {
+                //                    self.messageLabel.text = "User or password not valid"
+                //                }
             } catch {
                 print(error)
             }
@@ -58,18 +58,18 @@ class AddPostVC: UIViewController {
     }
     
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
