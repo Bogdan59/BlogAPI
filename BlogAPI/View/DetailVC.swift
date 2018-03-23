@@ -21,6 +21,7 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var detail: PostModel?
     var comm: BlogComment?
     var comment = [BlogComment]()
+    var omc: PostTableViewCell?
     
     
     
@@ -29,18 +30,24 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
-        loadPostId()
+        commentView.delegate = self
+        commentView.dataSource = self
         commentCell()
+        //        loadComment()
         detailTitleLabel.text = detail?.text
         detailDateLabel.text = detail?.datePublic
         detailTitLabel.text = detail?.title
         detailIdLabel.text = String(describing: detail!.id)
-
+        omc?.nameCommentLabel.text = comm?.author
+        omc?.dateCommentLabel.text = comm?.datePublic
+        omc?.textCommentLabel.text = comm?.text
+        
+        
         
     }
     
     public func loadPostId() {
-        
+        commentCell()
         let  id = (detail?.id)!
         let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/posts/\(id)")
         guard let downloadURL = url else {return}
@@ -66,7 +73,6 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return (detail?.text.count)!
         
         //        (self.detail?.text.count)!
@@ -75,11 +81,15 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellCell", for: indexPath) as! PostTableViewCell
+//                cell.nameCommentLabel.text = comm?.author
+//                cell.dateCommentLabel.text = comm?.datePublic
+//                cell.textCommentLabel.text = comm?.text
+        //        cell.nameCommentLabel.text = String(describing: comm?.id)
         
-//        cell.nameCommentLabel.text = String(describing: comm?.id)
-        cell.dateCommentLabel.text = comm?.datePublic
-        cell.textCommentLabel.text = comm?.text
-        cell.nameCommentLabel.text = value(forKey: "author") as! String
+        
+        cell.dateCommentLabel.text =  detail?.datePublic //comm?.datePublic
+        cell.textCommentLabel.text =   detail?.text //comm?.text
+        cell.nameCommentLabel.text =  String(describing: detail!.id)  //value(forKey: "author") as! String
         
         //        let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cellCell")! as UITableViewCell
         //
@@ -98,16 +108,26 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     func commentCell() {
         let idComment = (detail?.id)!
-        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(idComment)") else { return }
-        
+//        \(idComment)
+        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/21") else { return }
+//        let comss: BlogComment?
+//        let lbl: PostTable?
+        DispatchQueue.main.async {
+            var comss: BlogComment?
+            var lbl: PostTable?
+            //                    comss?.author = (lbl?.nameTableLabel.text!)!
+            //                    comss?.datePublic = (lbl?.dateTableLable.text)!
+            //                    comss?.text = (lbl?.commentTableLable.text)!
+            lbl?.nameTableLabel.text = comss?.author
+            lbl?.dateTableLable.text = comss?.datePublic
+            lbl?.commentTableLable.text = comss?.text
+            
+        }
         let session = URLSession.shared
         session.dataTask(with: url) { (data, response, error) in
             if let response = response {
                 print(response)
                 print(response)
-                DispatchQueue.main.async {
-                    
-                }
             }
             
             guard let data = data else { return}
@@ -116,31 +136,34 @@ class DetailVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: [])
                 print(json)
+
             } catch {
                 print(error)
             }
-        }.resume()
-    }
-    
-
-    func loadComment(){
-        
-        let idComment = (detail?.id)!
-        let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(idComment)")
-        URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if error == nil {
-                do {
-                    self.comment = try JSONDecoder().decode([BlogComment].self, from: data!)
-                } catch {
-                    print("Error")
-                }
-                DispatchQueue.main.async {
-                    self.commentView.reloadData()
-                }
-            }
             }.resume()
     }
+   
 
+    
+    
+//    func loadComment(){
+//
+//        let idComment = (detail?.id)!
+//        let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/comments/posts/\(idComment)")
+//        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//            if error == nil {
+//                do {
+//                    self.comment = try JSONDecoder().decode([BlogComment].self, from: data!)
+//                } catch {
+//                    print("Error")
+//                }
+//                DispatchQueue.main.async {
+//                    self.commentView.reloadData()
+//                }
+//            }
+//            }.resume()
+//    }
+    
     
 }
 

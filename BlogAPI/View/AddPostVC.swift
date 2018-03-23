@@ -16,30 +16,48 @@ class AddPostVC: UIViewController {
     @IBOutlet weak var textAddTextField: UITextField!
     
     @IBAction func addPostButton(_ sender: UIButton) {
-//        let object = addPost(object)
+    
+
         
-//        let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/posts/\(id)")
-//        guard let downloadURL = url else {return}
-//
-//        URLSession.shared.dataTask(with: downloadURL) { (data, urlResponse, error) in
-//            guard let data = data, error == nil ,  urlResponse != nil else {
-//                print("error")
-//
-//                return
-//            }
-//            do {
-//                let decoder = JSONDecoder()
-//                let loadIdText = try decoder.decode( PostModel.self , from: data)
-//
+        
+        
+        let parameters = ["title": self.titleAddTextField.text!, "text": self.textAddTextField.text! ] as [String : Any]
+
+        guard let url = URL(string: "http://fed-blog.herokuapp.com/api/v1/security/login") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        session.dataTask(with: request) { (data, response, error) in
+            if let response = response {
+                print(response)
+                
 //                DispatchQueue.main.async {
-//                    self.titleAddTextField.text =
-//                    self.textAddTextField.text =
+//                    self.messageLabel.text = "Welcome back"
 //                }
-//            }catch {
-//                print("error after load")
-//            }
-//            }.resume()
+                
+            }
+            
+            guard let data = data else { return }
+            do {
+                let json: Any?
+                json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+//                DispatchQueue.main.async {
+//                    self.messageLabel.text = "User or password not valid"
+//                }
+            } catch {
+                print(error)
+            }
+            
+            }.resume()
     }
+    
+    
 
     
     override func viewDidLoad() {
@@ -52,16 +70,6 @@ class AddPostVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
